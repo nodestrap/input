@@ -148,72 +148,58 @@ export function Input(props) {
     const propEnabled = usePropEnabled(props);
     const propReadOnly = usePropReadOnly(props);
     // jsx:
-    return (<EditableTextControl 
-    // other props:
-    {...restProps} 
-    // semantics:
-    tag={props.tag ?? 'span'} 
-    // accessibilities:
-    tabIndex={-1} // negative [tabIndex] => act as *wrapper* element, if input is `:focus` (pseudo) => the wrapper is also `.focus` (synthetic)
-     enabled={props.enabled ?? !(props.disabled ?? false)} 
-    // classes:
-    mainClass={props.mainClass ?? sheet.main}>
-            <input 
-    // essentials:
-    ref={elmRef} 
-    // accessibilities:
-    {...{
-        autoFocus,
-        tabIndex,
-        enterKeyHint,
-    }} disabled={!propEnabled} // do not submit the value if disabled
-     readOnly={propReadOnly} // locks the value if readOnly
-     
-    // values:
-    {...{
-        name,
-        form,
-        defaultValue,
-        value,
-    }} 
-    // validations:
-    {...{
-        required,
-        minLength,
-        maxLength,
-        min,
-        max,
-        step,
-        pattern,
-    }} 
-    // formats:
-    {...{
-        type,
-        placeholder,
-        autoComplete,
-        list,
-    }} 
-    // events:
-    onChange={(e) => {
-            onChange?.(e);
-            // then do nothing here, just for satisfying React for controllable readonly input
-            // passing `onChange={undefined}` causing React unhappy
-        }}/>
-        </EditableTextControl>);
+    return (React.createElement(EditableTextControl, { ...restProps, 
+        // semantics:
+        tag: props.tag ?? 'span', 
+        // accessibilities:
+        tabIndex: -1, enabled: props.enabled ?? !(props.disabled ?? false), 
+        // classes:
+        mainClass: props.mainClass ?? sheet.main },
+        React.createElement("input", { 
+            // essentials:
+            ref: elmRef, ...{
+                autoFocus,
+                tabIndex,
+                enterKeyHint,
+            }, disabled: !propEnabled, readOnly: propReadOnly, ...{
+                name,
+                form,
+                defaultValue,
+                value,
+            }, ...{
+                required,
+                minLength,
+                maxLength,
+                min,
+                max,
+                step,
+                pattern,
+            }, ...{
+                type,
+                placeholder,
+                autoComplete,
+                list,
+            }, 
+            // events:
+            onChange: (e) => {
+                onChange?.(e);
+                // then do nothing here, just for satisfying React for controllable readonly input
+                // passing `onChange={undefined}` causing React unhappy
+            } })));
 }
 export { Input as default };
-export function TextInput(props) { return <Input {...props} type='text'/>; }
-export function SearchInput(props) { return <Input {...props} type='search'/>; }
-export function PasswordInput(props) { return <Input {...props} type='password'/>; }
-export function EmailInput(props) { return <Input {...props} type='email'/>; }
-export function TelInput(props) { return <Input {...props} type='tel'/>; }
-export function UrlInput(props) { return <Input {...props} type='url'/>; }
-export function NumberInput(props) { return <Input {...props} type='number'/>; }
-export function TimeInput(props) { return <Input {...props} type='time'/>; }
-export function WeekInput(props) { return <Input {...props} type='week'/>; }
-export function DateInput(props) { return <Input {...props} type='date'/>; }
-export function DateTimeInput(props) { return <Input {...props} type='datetime-local'/>; }
-export function MonthInput(props) { return <Input {...props} type='month'/>; }
+export function TextInput(props) { return React.createElement(Input, { ...props, type: 'text' }); }
+export function SearchInput(props) { return React.createElement(Input, { ...props, type: 'search' }); }
+export function PasswordInput(props) { return React.createElement(Input, { ...props, type: 'password' }); }
+export function EmailInput(props) { return React.createElement(Input, { ...props, type: 'email' }); }
+export function TelInput(props) { return React.createElement(Input, { ...props, type: 'tel' }); }
+export function UrlInput(props) { return React.createElement(Input, { ...props, type: 'url' }); }
+export function NumberInput(props) { return React.createElement(Input, { ...props, type: 'number' }); }
+export function TimeInput(props) { return React.createElement(Input, { ...props, type: 'time' }); }
+export function WeekInput(props) { return React.createElement(Input, { ...props, type: 'week' }); }
+export function DateInput(props) { return React.createElement(Input, { ...props, type: 'date' }); }
+export function DateTimeInput(props) { return React.createElement(Input, { ...props, type: 'datetime-local' }); }
+export function MonthInput(props) { return React.createElement(Input, { ...props, type: 'month' }); }
 // mark as Input compatible:
 TextInput.prototype = Input.prototype;
 SearchInput.prototype = Input.prototype;
