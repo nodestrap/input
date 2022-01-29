@@ -3,9 +3,13 @@ import { default as React, } from 'react'; // base technology of our nodestrap c
 // cssfn:
 import { 
 // compositions:
-composition, mainComposition, imports, 
-// layouts:
-layout, vars, children, } from '@cssfn/cssfn'; // cssfn core
+mainComposition, 
+// styles:
+style, vars, imports, 
+// rules:
+fallbacks, 
+//combinators:
+children, } from '@cssfn/cssfn'; // cssfn core
 import { 
 // hooks:
 createUseSheet, } from '@cssfn/react-cssfn'; // cssfn for react
@@ -30,12 +34,12 @@ export const usesInputLayout = () => {
     // dependencies:
     // spacings:
     const [, paddingRefs] = usesPadding();
-    return composition([
-        imports([
+    return style({
+        ...imports([
             // layouts:
             usesEditableTextControlLayout(),
         ]),
-        layout({
+        ...style({
             // layouts:
             display: 'flex',
             flexDirection: 'row',
@@ -45,11 +49,11 @@ export const usesInputLayout = () => {
             // positions:
             verticalAlign: 'baseline',
             // children:
-            ...children(inputElm, [
-                imports([
+            ...children(inputElm, {
+                ...imports([
                     stripoutTextbox(), // clear browser's default styles
                 ]),
-                layout({
+                ...style({
                     // layouts:
                     display: 'block',
                     // sizes:
@@ -59,9 +63,9 @@ export const usesInputLayout = () => {
                     // span to maximum width including parent's paddings:
                     boxSizing: 'border-box',
                     inlineSize: 'fill-available',
-                    fallbacks: {
+                    ...fallbacks({
                         inlineSize: `calc(100% + (${paddingRefs.paddingInline} * 2))`,
-                    },
+                    }),
                     // spacings:
                     // cancel-out parent's padding with negative margin:
                     marginInline: `calc(0px - ${paddingRefs.paddingInline})`,
@@ -70,30 +74,28 @@ export const usesInputLayout = () => {
                     paddingInline: paddingRefs.paddingInline,
                     paddingBlock: paddingRefs.paddingBlock,
                 }),
-            ]),
+            }),
             // customize:
             ...usesGeneralProps(cssProps), // apply general cssProps
         }),
-    ]);
+    });
 };
 export const usesInputVariants = () => {
     // dependencies:
     // layouts:
-    const [sizes] = usesSizeVariant((sizeName) => composition([
-        layout({
-            // overwrites propName = propName{SizeName}:
-            ...overwriteProps(cssDecls, usesSuffixedProps(cssProps, sizeName)),
-        }),
-    ]));
+    const [sizes] = usesSizeVariant((sizeName) => style({
+        // overwrites propName = propName{SizeName}:
+        ...overwriteProps(cssDecls, usesSuffixedProps(cssProps, sizeName)),
+    }));
     // colors:
-    const [gradient, , gradientDecls] = usesGradientVariant((toggle) => composition([
-        vars({
+    const [gradient, , gradientDecls] = usesGradientVariant((toggle) => style({
+        ...vars({
             // *toggle on/off* the background gradient prop:
             [gradientDecls.backgGradTg]: toggle ? cssProps.backgGrad : ((toggle !== null) ? 'initial' : null),
         }),
-    ]));
-    return composition([
-        imports([
+    }));
+    return style({
+        ...imports([
             // variants:
             usesEditableTextControlVariants(),
             // layouts:
@@ -101,27 +103,25 @@ export const usesInputVariants = () => {
             // colors:
             gradient(),
         ]),
-    ]);
+    });
 };
 export const usesInputStates = () => {
-    return composition([
-        imports([
+    return style({
+        ...imports([
             // states:
             usesEditableTextControlStates(),
         ]),
-    ]);
+    });
 };
 export const useInputSheet = createUseSheet(() => [
-    mainComposition([
-        imports([
-            // layouts:
-            usesInputLayout(),
-            // variants:
-            usesInputVariants(),
-            // states:
-            usesInputStates(),
-        ]),
-    ]),
+    mainComposition(imports([
+        // layouts:
+        usesInputLayout(),
+        // variants:
+        usesInputVariants(),
+        // states:
+        usesInputStates(),
+    ])),
 ], /*sheetId :*/ 'b75oz4h9pp'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
 // configs:
 export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {

@@ -1,9 +1,9 @@
 import { default as React } from 'react';
 import { EditableTextControlProps } from '@nodestrap/editable-text-control';
 export declare const inputElm = ":first-child";
-export declare const usesInputLayout: () => import("@cssfn/cssfn").StyleCollection;
-export declare const usesInputVariants: () => import("@cssfn/cssfn").StyleCollection;
-export declare const usesInputStates: () => import("@cssfn/cssfn").StyleCollection;
+export declare const usesInputLayout: () => import("@cssfn/cssfn").Rule;
+export declare const usesInputVariants: () => import("@cssfn/cssfn").Rule;
+export declare const usesInputStates: () => import("@cssfn/cssfn").Rule;
 export declare const useInputSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
 export declare const cssProps: import("@cssfn/css-config").Refs<{
     backgGrad: string[][];
