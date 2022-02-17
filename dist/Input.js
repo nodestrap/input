@@ -24,7 +24,7 @@ usePropEnabled, usePropReadOnly, } from '@nodestrap/accessibilities';
 // nodestrap components:
 import { 
 // hooks:
-usesSizeVariant, usesGradientVariant, usesPadding, } from '@nodestrap/basic';
+usesSizeVariant, usesGradientVariant, expandBorderRadius, usesPadding, } from '@nodestrap/basic';
 import { 
 // styles:
 usesEditableTextControlLayout, usesEditableTextControlVariants, usesEditableTextControlStates, EditableTextControl, } from '@nodestrap/editable-text-control';
@@ -66,6 +66,9 @@ export const usesInputLayout = () => {
                     ...fallbacks({
                         inlineSize: `calc(100% + (${paddingRefs.paddingInline} * 2))`,
                     }),
+                    // borders:
+                    // affects for :autofill
+                    ...expandBorderRadius(),
                     // spacings:
                     // cancel-out parent's padding with negative margin:
                     marginInline: `calc(0px - ${paddingRefs.paddingInline})`,

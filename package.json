@@ -1,6 +1,6 @@
 {
   "name": "@nodestrap/input",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "An interactive control in order to accept data from the user.",
   "type": "module",
   "main": "dist/Input.js",
@@ -32,13 +32,13 @@
   "homepage": "https://github.com/nodestrap/input#readme",
   "dependencies": {
     "@cssfn/css-config": "^1.0.4",
-    "@cssfn/cssfn": "^1.0.11",
+    "@cssfn/cssfn": "^1.0.12",
     "@cssfn/react-cssfn": "^1.0.11",
     "@nodestrap/accessibilities": "^4.0.4",
     "@nodestrap/basic": "^4.0.7",
     "@nodestrap/editable-text-control": "^4.0.7",
     "@nodestrap/stripouts": "^4.0.2",
-    "@types/react": "^17.0.38",
+    "@types/react": "^17.0.39",
     "react": "^17.0.2"
   }
 }
